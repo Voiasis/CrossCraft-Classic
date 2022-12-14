@@ -1,10 +1,11 @@
-#include "../Config.hpp"
-#include "../TexturePackManager.hpp"
 #include <Core/Application.hpp>
 #include <Graphics/2D/FontRenderer.hpp>
 #include <Graphics/2D/Sprite.hpp>
 #include <Stardust-Celeste.hpp>
 #include <Utilities/Input.hpp>
+
+#include "../Config.hpp"
+#include "../TexturePackManager.hpp"
 
 using namespace Stardust_Celeste;
 
@@ -15,10 +16,13 @@ using namespace Stardust_Celeste;
  *
  */
 class MenuState : public Core::ApplicationState {
-  public:
+   public:
     MenuState()
-        : key_controller(nullptr), psp_controller(nullptr),
-          mouse_controller(nullptr), shouldQuit(false), startMP(false),
+        : key_controller(nullptr),
+          psp_controller(nullptr),
+          mouse_controller(nullptr),
+          shouldQuit(false),
+          startMP(false),
           startSP(false){};
     ~MenuState();
 
@@ -36,7 +40,7 @@ class MenuState : public Core::ApplicationState {
     static void up(std::any m);
     static void down(std::any m);
 
-  private:
+   private:
     Utilities::Controller *psp_controller;
     Utilities::Controller *vita_controller;
     Utilities::Controller *key_controller;
@@ -68,4 +72,4 @@ class MenuState : public Core::ApplicationState {
     bool textureMenu;
 };
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

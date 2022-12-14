@@ -1,13 +1,15 @@
 #include "World.hpp"
+
+#include <Platform/Platform.hpp>
+#include <Rendering/Rendering.hpp>
+#include <Utilities/Input.hpp>
+#include <iostream>
+
 #include "../Modding/Mod.hpp"
 #include "../TexturePackManager.hpp"
 #include "Generation/NoiseUtil.hpp"
 #include "Generation/WorldGenUtil.hpp"
 #include "SelectionBox.hpp"
-#include <Platform/Platform.hpp>
-#include <Rendering/Rendering.hpp>
-#include <Utilities/Input.hpp>
-#include <iostream>
 
 #if PSP
 #include <pspctrl.h>
@@ -64,13 +66,18 @@ World::World(std::shared_ptr<Player> p) {
 
     sbox = create_scopeptr<SelectionBox>();
 
+    sound_manager = create_scopeptr<SoundManager>();
+
     place_icd = 0.0f;
     break_icd = 0.0f;
     chunk_generate_icd = 0.0f;
 }
 
 auto World::spawn() -> void { player->spawn(this); }
-template <typename T> constexpr T DEGTORAD(T x) { return x / 180.0f * 3.14159; }
+template <typename T>
+constexpr T DEGTORAD(T x) {
+    return x / 180.0f * 3.14159;
+}
 
 auto World::generate_meta() -> void {
     for (int x = 0; x < world_size.x / 16; x++)
@@ -123,12 +130,10 @@ World::~World() {
     free(lightData);
     free(chunksMeta);
     // Destroy height map
-    if (hmap != nullptr)
-        free(hmap);
+    if (hmap != nullptr) free(hmap);
 
     for (auto const &[key, val] : chunks) {
-        if (val)
-            delete val;
+        if (val) delete val;
     }
     chunks.clear();
 }
@@ -150,7 +155,6 @@ const auto RENDER_DISTANCE_DIAMETER = 16.f;
 #endif
 
 auto World::get_needed_chunks() -> std::vector<glm::ivec2> {
-
 #if BUILD_PLAT == BUILD_3DS
     auto RDIST_DIAMETER = static_cast<float>(RENDER_DISTANCE_DIAMETER);
 #else
@@ -186,7 +190,6 @@ auto World::get_needed_chunks() -> std::vector<glm::ivec2> {
 
 int old_rdist = 0;
 void World::update(double dt) {
-
     // Request 3D Mode
     Rendering::RenderContext::get().set_mode_3D();
     player->update(static_cast<float>(dt), this);
@@ -204,8 +207,7 @@ void World::update(double dt) {
 
             for (auto &[key, value] : chunks) {
                 // Random tick
-                for (int i = 0; i < 30; i++)
-                    value->rtick_update(this);
+                for (int i = 0; i < 30; i++) value->rtick_update(this);
 
                 // Chunk Updates
                 value->chunk_update(this);
@@ -297,7 +299,6 @@ void World::update(double dt) {
 }
 
 void World::draw() {
-
     // Set up texture
     Rendering::TextureManager::get().bind_texture(terrain_atlas);
 
@@ -379,8 +380,7 @@ auto World::update_surroundings(int x, int z) -> void {
 
     if (xMod && nX >= 0 && nX < 16) {
         uint32_t idxx = nX << 16 | (cY & 0x00FF);
-        if (chunks.find(idxx) != chunks.end())
-            chunks[idxx]->generate(this);
+        if (chunks.find(idxx) != chunks.end()) chunks[idxx]->generate(this);
     }
 
     bool zMod = true;
@@ -395,8 +395,7 @@ auto World::update_surroundings(int x, int z) -> void {
 
     if (zMod && nY >= 0 && nY < 16) {
         uint32_t idzz = 0 | cX << 16 | (nY & 0x00FF);
-        if (chunks.find(idzz) != chunks.end())
-            chunks[idzz]->generate(this);
+        if (chunks.find(idzz) != chunks.end()) chunks[idzz]->generate(this);
     }
 }
 
@@ -432,8 +431,7 @@ auto World::set_block(short x, short y, short z, uint8_t mode, uint8_t block)
 }
 
 auto World::add_update(glm::ivec3 ivec) -> void {
-    if (!validate_ivec3(ivec, world_size))
-        return;
+    if (!validate_ivec3(ivec, world_size)) return;
 
     uint16_t x = ivec.x / 16;
     uint16_t y = ivec.z / 16;
@@ -454,4 +452,4 @@ auto World::update_nearby_blocks(glm::ivec3 ivec) -> void {
     add_update({ivec.x, ivec.y, ivec.z - 1});
 }
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

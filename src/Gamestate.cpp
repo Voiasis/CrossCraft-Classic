@@ -1,4 +1,5 @@
 #include "Gamestate.hpp"
+
 #include "Modding/Mod.hpp"
 #include "MusicManager.hpp"
 #include "Rendering/ShaderManager.hpp"
@@ -127,7 +128,7 @@ void GameState::on_start() {
 
     instanced_gamestate = this;
 
-#if BUILD_PLAT == BUILD_WINDOWS || BUILD_PLAT == BUILD_POSIX ||                \
+#if BUILD_PLAT == BUILD_WINDOWS || BUILD_PLAT == BUILD_POSIX || \
     BUILD_PLAT == BUILD_VITA
     auto shad =
         Rendering::ShaderManager::get().load_shader(vert_source, frag_source);
@@ -161,8 +162,7 @@ void GameState::on_start() {
             else
                 CrossCraftGenerator::generate(world.get());
         }
-        if (fptr != nullptr)
-            fclose(fptr);
+        if (fptr != nullptr) fclose(fptr);
 
         world->spawn();
     }
@@ -212,8 +212,7 @@ void GameState::quit(std::any d) {
 void GameState::on_update(Core::Application *app, double dt) {
     MusicManager::get().update(dt);
 
-    if (client.get() != nullptr)
-        client->update(dt);
+    if (client.get() != nullptr) client->update(dt);
 
     if (client.get() == nullptr || client->is_ready) {
         Input::update();
@@ -223,10 +222,8 @@ void GameState::on_update(Core::Application *app, double dt) {
     Modding::ModManager::get().onUpdate();
 }
 void GameState::on_draw(Core::Application *app, double dt) {
-    if (client.get() != nullptr)
-        client->draw();
+    if (client.get() != nullptr) client->draw();
 
-    if (client.get() == nullptr || client->is_ready)
-        world->draw();
+    if (client.get() == nullptr || client->is_ready) world->draw();
 }
-} // namespace CrossCraft
+}  // namespace CrossCraft

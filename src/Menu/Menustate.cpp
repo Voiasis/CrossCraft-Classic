@@ -1,7 +1,7 @@
 #include "Menustate.hpp"
-#include "../Gamestate.hpp"
-#include "../MusicManager.hpp"
-#include "../UI/TextHelper.hpp"
+
+#include <stdio.h>
+
 #include <Utilities/Controllers/KeyboardController.hpp>
 #include <Utilities/Controllers/MouseController.hpp>
 #include <Utilities/Controllers/N3DSController.hpp>
@@ -10,7 +10,10 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <stdio.h>
+
+#include "../Gamestate.hpp"
+#include "../MusicManager.hpp"
+#include "../UI/TextHelper.hpp"
 
 #define BUILD_PC (BUILD_PLAT == BUILD_WINDOWS || BUILD_PLAT == BUILD_POSIX)
 
@@ -213,7 +216,6 @@ void MenuState::on_update(Core::Application *app, double dt) {
 }
 
 void MenuState::on_draw(Core::Application *app, double dt) {
-
     Rendering::RenderContext::get().set_mode_2D();
 #if BUILD_PLAT == BUILD_3DS
     Rendering::RenderContext::get().matrix_ortho(0, 400, 0, 240, 100, -100);
@@ -580,34 +582,28 @@ void MenuState::trigger(std::any m) {
 void MenuState::up(std::any m) {
     auto mstate = std::any_cast<MenuState *>(m);
     mstate->selIdx--;
-    if (mstate->selIdx < 0)
-        mstate->selIdx = 0;
+    if (mstate->selIdx < 0) mstate->selIdx = 0;
 }
 void MenuState::down(std::any m) {
     auto mstate = std::any_cast<MenuState *>(m);
 
     if (!mstate->textureMenu) {
         mstate->selIdx++;
-        if (mstate->selIdx > 3)
-            mstate->selIdx = 3;
+        if (mstate->selIdx > 3) mstate->selIdx = 3;
     } else {
-
         mstate->selIdx++;
         int total_idx = TexturePackManager::get().path_names.size();
-        if (total_idx > 6)
-            total_idx = 6;
+        if (total_idx > 6) total_idx = 6;
 
         total_idx + 1;
 
-        if (mstate->selIdx > total_idx)
-            mstate->selIdx = 0;
+        if (mstate->selIdx > total_idx) mstate->selIdx = 0;
     }
 }
 
 /* Ugly Key-Binding Function */
 
 void MenuState::bind_controls() {
-
     psp_controller->add_command({(int)Input::PSPButtons::Cross, KeyFlag::Press},
                                 {MenuState::trigger, this});
     psp_controller->add_command({(int)Input::PSPButtons::Up, KeyFlag::Press},
@@ -642,4 +638,4 @@ void MenuState::bind_controls() {
     Input::add_controller(mouse_controller);
     Input::add_controller(n3ds_controller);
 }
-} // namespace CrossCraft
+}  // namespace CrossCraft

@@ -1,6 +1,5 @@
-#include "Gamestate.hpp"
-
 #include "Controls.hpp"
+#include "Gamestate.hpp"
 #include "World/DigAction.hpp"
 #include "World/PlaceAction.hpp"
 #include "World/SaveData.hpp"
@@ -10,7 +9,6 @@ using namespace Stardust_Celeste::Utilities;
 /* Ugly Key-Binding Function */
 
 void GameState::bind_controls() {
-
     psp_controller->clear_command();
     key_controller->clear_command();
     mouse_controller->clear_command();
@@ -279,4 +277,4 @@ void GameState::bind_controls() {
         {Player::tab_start, world->player.get()});
 }
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

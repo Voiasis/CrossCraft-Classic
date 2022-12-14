@@ -1,11 +1,12 @@
 #pragma once
-#include "Utils.hpp"
 #include <algorithm>
 #include <fstream>
 #include <sstream>
 #include <string>
 
-#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA ||                   \
+#include "Utils.hpp"
+
+#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA || \
       BUILD_PLAT == BUILD_3DS)
 #include <GLFW/glfw3.h>
 
@@ -24,7 +25,6 @@ static void controls_key_callback(GLFWwindow *window, int key, int scancode,
 namespace CrossCraft {
 
 struct Controls {
-
     Controls() { loadControls(); }
 
     // PSP Analog View (true) vs Analog Move
@@ -54,7 +54,7 @@ struct Controls {
     int buttonMenu;
 
     inline auto getNextKey() -> int {
-#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA ||                   \
+#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA || \
       BUILD_PLAT == BUILD_3DS)
         glfwretval = 0;
         auto prev = glfwSetKeyCallback(GI::window, controls_key_callback);
@@ -82,119 +82,118 @@ struct Controls {
     }
 
     inline auto getKeyName(int key) -> std::string {
-#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA ||                   \
+#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA || \
       BUILD_PLAT == BUILD_3DS)
         auto res = glfwGetKeyName(key, 0);
         if (res != nullptr) {
             return std::string(res);
         } else {
-
             switch (key) {
-            case GLFW_KEY_SPACE:
-                return "space";
+                case GLFW_KEY_SPACE:
+                    return "space";
 
-            case GLFW_KEY_LEFT_SHIFT:
-                return "lshift";
+                case GLFW_KEY_LEFT_SHIFT:
+                    return "lshift";
 
-            case GLFW_KEY_RIGHT_SHIFT:
-                return "rshift";
+                case GLFW_KEY_RIGHT_SHIFT:
+                    return "rshift";
 
-            case GLFW_KEY_TAB:
-                return "tab";
+                case GLFW_KEY_TAB:
+                    return "tab";
 
-            case GLFW_KEY_ESCAPE:
-                return "escape";
+                case GLFW_KEY_ESCAPE:
+                    return "escape";
 
-            default:
-                return "";
+                default:
+                    return "";
             }
         }
 #elif BUILD_PLAT == BUILD_3DS
         switch (key) {
-        case KEY_SELECT:
-            return "select";
-        case KEY_START:
-            return "start";
-        case KEY_DUP:
-            return "up";
-        case KEY_DRIGHT:
-            return "right";
-        case KEY_DDOWN:
-            return "down";
-        case KEY_DLEFT:
-            return "left";
-        case KEY_L:
-            return "ltrigger";
-        case KEY_R:
-            return "rtrigger";
-        case KEY_Y:
-            return "y";
-        case KEY_B:
-            return "b";
-        case KEY_A:
-            return "a";
-        case KEY_X:
-            return "x";
-        default:
-            return "";
+            case KEY_SELECT:
+                return "select";
+            case KEY_START:
+                return "start";
+            case KEY_DUP:
+                return "up";
+            case KEY_DRIGHT:
+                return "right";
+            case KEY_DDOWN:
+                return "down";
+            case KEY_DLEFT:
+                return "left";
+            case KEY_L:
+                return "ltrigger";
+            case KEY_R:
+                return "rtrigger";
+            case KEY_Y:
+                return "y";
+            case KEY_B:
+                return "b";
+            case KEY_A:
+                return "a";
+            case KEY_X:
+                return "x";
+            default:
+                return "";
         }
 #elif BUILD_PLAT == BUILD_PSP
         switch (key) {
-        case PSP_CTRL_SELECT:
-            return "select";
-        case PSP_CTRL_START:
-            return "start";
-        case PSP_CTRL_UP:
-            return "up";
-        case PSP_CTRL_RIGHT:
-            return "right";
-        case PSP_CTRL_DOWN:
-            return "down";
-        case PSP_CTRL_LEFT:
-            return "left";
-        case PSP_CTRL_LTRIGGER:
-            return "ltrigger";
-        case PSP_CTRL_RTRIGGER:
-            return "rtrigger";
-        case PSP_CTRL_TRIANGLE:
-            return "triangle";
-        case PSP_CTRL_CIRCLE:
-            return "circle";
-        case PSP_CTRL_CROSS:
-            return "cross";
-        case PSP_CTRL_SQUARE:
-            return "square";
-        default:
-            return "";
+            case PSP_CTRL_SELECT:
+                return "select";
+            case PSP_CTRL_START:
+                return "start";
+            case PSP_CTRL_UP:
+                return "up";
+            case PSP_CTRL_RIGHT:
+                return "right";
+            case PSP_CTRL_DOWN:
+                return "down";
+            case PSP_CTRL_LEFT:
+                return "left";
+            case PSP_CTRL_LTRIGGER:
+                return "ltrigger";
+            case PSP_CTRL_RTRIGGER:
+                return "rtrigger";
+            case PSP_CTRL_TRIANGLE:
+                return "triangle";
+            case PSP_CTRL_CIRCLE:
+                return "circle";
+            case PSP_CTRL_CROSS:
+                return "cross";
+            case PSP_CTRL_SQUARE:
+                return "square";
+            default:
+                return "";
         }
 #elif BUILD_PLAT == BUILD_VITA
         switch (key) {
-        case SCE_CTRL_SELECT:
-            return "select";
-        case SCE_CTRL_START:
-            return "start";
-        case SCE_CTRL_UP:
-            return "up";
-        case SCE_CTRL_RIGHT:
-            return "right";
-        case SCE_CTRL_DOWN:
-            return "down";
-        case SCE_CTRL_LEFT:
-            return "left";
-        case SCE_CTRL_LTRIGGER:
-            return "ltrigger";
-        case SCE_CTRL_RTRIGGER:
-            return "rtrigger";
-        case SCE_CTRL_TRIANGLE:
-            return "triangle";
-        case SCE_CTRL_CIRCLE:
-            return "circle";
-        case SCE_CTRL_CROSS:
-            return "cross";
-        case SCE_CTRL_SQUARE:
-            return "square";
-        default:
-            return "";
+            case SCE_CTRL_SELECT:
+                return "select";
+            case SCE_CTRL_START:
+                return "start";
+            case SCE_CTRL_UP:
+                return "up";
+            case SCE_CTRL_RIGHT:
+                return "right";
+            case SCE_CTRL_DOWN:
+                return "down";
+            case SCE_CTRL_LEFT:
+                return "left";
+            case SCE_CTRL_LTRIGGER:
+                return "ltrigger";
+            case SCE_CTRL_RTRIGGER:
+                return "rtrigger";
+            case SCE_CTRL_TRIANGLE:
+                return "triangle";
+            case SCE_CTRL_CIRCLE:
+                return "circle";
+            case SCE_CTRL_CROSS:
+                return "cross";
+            case SCE_CTRL_SQUARE:
+                return "square";
+            default:
+                return "";
         }
 #endif
     }
@@ -206,12 +205,12 @@ struct Controls {
         return str;
     }
 
-    inline auto loadControls() -> void { // Store default values
+    inline auto loadControls() -> void {  // Store default values
         pspJoystickView = true;
         vitaJoystickSwap = true;
         ps2JoystickSwap = true;
 
-#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA ||                   \
+#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA || \
       BUILD_PLAT == BUILD_3DS)
         keyForward = GLFW_KEY_W;
         keyBack = GLFW_KEY_S;
@@ -245,7 +244,6 @@ struct Controls {
             std::string line;
 
             while (std::getline(file, line, ':')) {
-
                 if (line == "pspJoystick") {
                     std::getline(file, line);
                     std::stringstream str(line);
@@ -356,4 +354,4 @@ struct Controls {
     }
 };
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

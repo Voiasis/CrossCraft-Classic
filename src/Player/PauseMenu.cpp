@@ -1,4 +1,5 @@
 #include "PauseMenu.hpp"
+
 #include "../Controls.hpp"
 #include "../TexturePackManager.hpp"
 #include "../UI/TextHelper.hpp"
@@ -90,7 +91,6 @@ auto render_with_shadow(RefPtr<Graphics::G2D::FontRenderer> fontRenderer,
 }
 
 auto PauseMenu::draw() -> void {
-
 #if BUILD_PC
     glClear(GL_DEPTH_BUFFER_BIT);
 #endif
@@ -99,338 +99,343 @@ auto PauseMenu::draw() -> void {
     fontRenderer->clear_tiles();
 
     switch (pauseState) {
-
-    case 0: {
-        Rendering::RenderContext::get().matrix_translate({0, 10, 0});
-
-        if (selIdx == 0)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 1)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 2)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_translate({0, -48, 0});
-        if (selIdx == 3)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        render_with_shadow(fontRenderer, "Game Menu", SCREEN_CENTER, 216);
-        render_with_shadow(fontRenderer, "Back to Game", SCREEN_CENTER, 160);
-        render_with_shadow(fontRenderer, "Options", SCREEN_CENTER, 136);
-        render_with_shadow(fontRenderer, "Save Game", SCREEN_CENTER, 112);
-        render_with_shadow(fontRenderer, "Quit Game", SCREEN_CENTER, 64);
-        break;
-    }
-
-    case 1: {
-        Rendering::RenderContext::get().matrix_translate({-108, 32, 0});
-
-        if (selIdx == 0)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 1)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 2)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_clear();
-        Rendering::RenderContext::get().matrix_translate({108, 32, 0});
-
-        if (selIdx == 3)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 4)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 5)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_clear();
-        Rendering::RenderContext::get().matrix_translate({0, -96 + 8, 0});
-        if (selIdx == 6)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 7)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
-
-        render_with_shadow(fontRenderer, std::string("Option Menu:"),
-                           SCREEN_CENTER, 216);
-
-        render_with_shadow(fontRenderer,
-                           std::string("Music: ") + (Option::get().music
-                                                         ? std::string("ON")
-                                                         : std::string("OFF")),
-                           SCREEN_CENTER - 108, 182);
-
-        auto dist = Option::get().renderDist;
-        auto str = std::string("");
-        switch (dist) {
         case 0: {
-            str = "TINY";
+            Rendering::RenderContext::get().matrix_translate({0, 10, 0});
+
+            if (selIdx == 0)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 1)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 2)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_translate({0, -48, 0});
+            if (selIdx == 3)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            render_with_shadow(fontRenderer, "Game Menu", SCREEN_CENTER, 216);
+            render_with_shadow(fontRenderer, "Back to Game", SCREEN_CENTER,
+                               160);
+            render_with_shadow(fontRenderer, "Options", SCREEN_CENTER, 136);
+            render_with_shadow(fontRenderer, "Save Game", SCREEN_CENTER, 112);
+            render_with_shadow(fontRenderer, "Quit Game", SCREEN_CENTER, 64);
             break;
         }
+
         case 1: {
-            str = "SHORT";
-            break;
-        }
-        case 2: {
-            str = "NORMAL";
-            break;
-        }
-        case 3: {
-            str = "FAR";
-            break;
-        }
-        }
+            Rendering::RenderContext::get().matrix_translate({-108, 32, 0});
 
-        render_with_shadow(fontRenderer, std::string("Render Distance: ") + str,
-                           SCREEN_CENTER - 108, 158);
-        render_with_shadow(fontRenderer,
-                           std::string("View Bobbing: ") +
-                               (Option::get().bobbing ? std::string("ON")
+            if (selIdx == 0)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 1)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 2)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_clear();
+            Rendering::RenderContext::get().matrix_translate({108, 32, 0});
+
+            if (selIdx == 3)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 4)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 5)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_clear();
+            Rendering::RenderContext::get().matrix_translate({0, -96 + 8, 0});
+            if (selIdx == 6)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 7)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
+
+            render_with_shadow(fontRenderer, std::string("Option Menu:"),
+                               SCREEN_CENTER, 216);
+
+            render_with_shadow(fontRenderer,
+                               std::string("Music: ") +
+                                   (Option::get().music ? std::string("ON")
+                                                        : std::string("OFF")),
+                               SCREEN_CENTER - 108, 182);
+
+            auto dist = Option::get().renderDist;
+            auto str = std::string("");
+            switch (dist) {
+                case 0: {
+                    str = "TINY";
+                    break;
+                }
+                case 1: {
+                    str = "SHORT";
+                    break;
+                }
+                case 2: {
+                    str = "NORMAL";
+                    break;
+                }
+                case 3: {
+                    str = "FAR";
+                    break;
+                }
+            }
+
+            render_with_shadow(fontRenderer,
+                               std::string("Render Distance: ") + str,
+                               SCREEN_CENTER - 108, 158);
+            render_with_shadow(fontRenderer,
+                               std::string("View Bobbing: ") +
+                                   (Option::get().bobbing ? std::string("ON")
+                                                          : std::string("OFF")),
+                               SCREEN_CENTER - 108, 134);
+
+            render_with_shadow(fontRenderer,
+                               std::string("Sound: ") +
+                                   (Option::get().sound ? std::string("ON")
+                                                        : std::string("OFF")),
+                               SCREEN_CENTER + 108, 182);
+            render_with_shadow(fontRenderer,
+                               std::string("Show FPS: ") +
+                                   (Option::get().fps ? std::string("ON")
                                                       : std::string("OFF")),
-                           SCREEN_CENTER - 108, 134);
+                               SCREEN_CENTER + 108, 158);
+            render_with_shadow(fontRenderer,
+                               std::string("Vsync: ") +
+                                   (Option::get().vsync ? std::string("ON")
+                                                        : std::string("OFF")),
+                               SCREEN_CENTER + 108, 134);
 
-        render_with_shadow(fontRenderer,
-                           std::string("Sound: ") + (Option::get().sound
-                                                         ? std::string("ON")
-                                                         : std::string("OFF")),
-                           SCREEN_CENTER + 108, 182);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Show FPS: ") +
-                (Option::get().fps ? std::string("ON") : std::string("OFF")),
-            SCREEN_CENTER + 108, 158);
-        render_with_shadow(fontRenderer,
-                           std::string("Vsync: ") + (Option::get().vsync
-                                                         ? std::string("ON")
-                                                         : std::string("OFF")),
-                           SCREEN_CENTER + 108, 134);
+            render_with_shadow(fontRenderer, "Controls", SCREEN_CENTER, 62);
+            render_with_shadow(fontRenderer, "Back", SCREEN_CENTER, 62 - 24);
 
-        render_with_shadow(fontRenderer, "Controls", SCREEN_CENTER, 62);
-        render_with_shadow(fontRenderer, "Back", SCREEN_CENTER, 62 - 24);
+            break;
+        }
 
-        break;
-    }
-
-    case 2: {
-#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA ||                   \
+        case 2: {
+#if !(BUILD_PLAT == BUILD_PSP || BUILD_PLAT == BUILD_VITA || \
       BUILD_PLAT == BUILD_3DS)
-        Rendering::RenderContext::get().matrix_translate({-108, 32, 0});
+            Rendering::RenderContext::get().matrix_translate({-108, 32, 0});
 
-        if (selIdx == 0)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            if (selIdx == 0)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 1)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 1)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 2)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 2)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 3)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 3)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_clear();
-        Rendering::RenderContext::get().matrix_translate({108, 32, 0});
+            Rendering::RenderContext::get().matrix_clear();
+            Rendering::RenderContext::get().matrix_translate({108, 32, 0});
 
-        if (selIdx == 4)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            if (selIdx == 4)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 5)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 5)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 6)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 6)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 7)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 7)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_clear();
-        Rendering::RenderContext::get().matrix_translate({0, -96 - 16, 0});
-        if (selIdx == 8)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_clear();
+            Rendering::RenderContext::get().matrix_translate({0, -96 - 16, 0});
+            if (selIdx == 8)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        render_with_shadow(fontRenderer, std::string("Controls:"),
-                           SCREEN_CENTER, 216);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Forward: ") +
-                Controls::get().upperKeyName(Controls::get().keyForward),
-            132, 182);
-        render_with_shadow(fontRenderer,
-                           std::string("Back: ") + Controls::get().upperKeyName(
-                                                       Controls::get().keyBack),
-                           132, 182 - 24);
-        render_with_shadow(fontRenderer,
-                           std::string("Jump: ") + Controls::get().upperKeyName(
-                                                       Controls::get().keyJump),
-                           132, 182 - 48);
-        render_with_shadow(fontRenderer,
-                           std::string("Chat: ") + Controls::get().upperKeyName(
-                                                       Controls::get().keyChat),
-                           132, 182 - 72);
+            render_with_shadow(fontRenderer, std::string("Controls:"),
+                               SCREEN_CENTER, 216);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Forward: ") +
+                    Controls::get().upperKeyName(Controls::get().keyForward),
+                132, 182);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Back: ") +
+                    Controls::get().upperKeyName(Controls::get().keyBack),
+                132, 182 - 24);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Jump: ") +
+                    Controls::get().upperKeyName(Controls::get().keyJump),
+                132, 182 - 48);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Chat: ") +
+                    Controls::get().upperKeyName(Controls::get().keyChat),
+                132, 182 - 72);
 
-        render_with_shadow(fontRenderer,
-                           std::string("Left: ") + Controls::get().upperKeyName(
-                                                       Controls::get().keyLeft),
-                           348, 182);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Right: ") +
-                Controls::get().upperKeyName(Controls::get().keyRight),
-            348, 182 - 24);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Tab Menu: ") +
-                Controls::get().upperKeyName(Controls::get().keyTab),
-            348, 182 - 48);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Respawn: ") +
-                Controls::get().upperKeyName(Controls::get().keyRespawn),
-            348, 182 - 72);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Left: ") +
+                    Controls::get().upperKeyName(Controls::get().keyLeft),
+                348, 182);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Right: ") +
+                    Controls::get().upperKeyName(Controls::get().keyRight),
+                348, 182 - 24);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Tab Menu: ") +
+                    Controls::get().upperKeyName(Controls::get().keyTab),
+                348, 182 - 48);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Respawn: ") +
+                    Controls::get().upperKeyName(Controls::get().keyRespawn),
+                348, 182 - 72);
 
-        render_with_shadow(fontRenderer, "Back", 240, 62 - 24);
+            render_with_shadow(fontRenderer, "Back", 240, 62 - 24);
 #else
-        Rendering::RenderContext::get().matrix_translate({-108, 32, 0});
-        if (selIdx == 0)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({-108, 32, 0});
+            if (selIdx == 0)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 1)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 1)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_clear();
-        Rendering::RenderContext::get().matrix_translate({108, 32, 0});
+            Rendering::RenderContext::get().matrix_clear();
+            Rendering::RenderContext::get().matrix_translate({108, 32, 0});
 
-        if (selIdx == 2)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            if (selIdx == 2)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 3)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 3)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_clear();
-        Rendering::RenderContext::get().matrix_translate({0, -96 + 8, 0});
-        if (selIdx == 4)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_clear();
+            Rendering::RenderContext::get().matrix_translate({0, -96 + 8, 0});
+            if (selIdx == 4)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        Rendering::RenderContext::get().matrix_translate({0, -24, 0});
-        if (selIdx == 5)
-            sel_sprite->draw();
-        else
-            unsel_sprite->draw();
+            Rendering::RenderContext::get().matrix_translate({0, -24, 0});
+            if (selIdx == 5)
+                sel_sprite->draw();
+            else
+                unsel_sprite->draw();
 
-        render_with_shadow(fontRenderer, std::string("Controls:"),
-                           SCREEN_CENTER, 216);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Break: ") +
-                Controls::get().upperKeyName(Controls::get().buttonBreak),
-            SCREEN_CENTER - 108, 182);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Place: ") +
-                Controls::get().upperKeyName(Controls::get().buttonPlace),
-            SCREEN_CENTER - 108, 182 - 24);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Block Menu: ") +
-                Controls::get().upperKeyName(Controls::get().buttonMenu),
-            SCREEN_CENTER + 108, 182);
-        render_with_shadow(
-            fontRenderer,
-            std::string("Jump: ") +
-                Controls::get().upperKeyName(Controls::get().buttonJump),
-            SCREEN_CENTER + 108, 182 - 24);
+            render_with_shadow(fontRenderer, std::string("Controls:"),
+                               SCREEN_CENTER, 216);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Break: ") +
+                    Controls::get().upperKeyName(Controls::get().buttonBreak),
+                SCREEN_CENTER - 108, 182);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Place: ") +
+                    Controls::get().upperKeyName(Controls::get().buttonPlace),
+                SCREEN_CENTER - 108, 182 - 24);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Block Menu: ") +
+                    Controls::get().upperKeyName(Controls::get().buttonMenu),
+                SCREEN_CENTER + 108, 182);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Jump: ") +
+                    Controls::get().upperKeyName(Controls::get().buttonJump),
+                SCREEN_CENTER + 108, 182 - 24);
 
 #if PSP || BUILD_PLAT == BUILD_3DS
-        render_with_shadow(fontRenderer,
-                           std::string("Left Analog: ") +
-                               (Controls::get().pspJoystickView
-                                    ? std::string("View")
-                                    : std::string("Move")),
-                           SCREEN_CENTER, 62);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Left Analog: ") + (Controls::get().pspJoystickView
+                                                    ? std::string("View")
+                                                    : std::string("Move")),
+                SCREEN_CENTER, 62);
 #else
-        render_with_shadow(fontRenderer,
-                           std::string("Left Analog: ") +
-                               (Controls::get().vitaJoystickSwap
-                                    ? std::string("View")
-                                    : std::string("Move")),
-                           SCREEN_CENTER, 62);
+            render_with_shadow(
+                fontRenderer,
+                std::string("Left Analog: ") + (Controls::get().vitaJoystickSwap
+                                                    ? std::string("View")
+                                                    : std::string("Move")),
+                SCREEN_CENTER, 62);
 #endif
-        render_with_shadow(fontRenderer, "Back", SCREEN_CENTER, 62 - 24);
+            render_with_shadow(fontRenderer, "Back", SCREEN_CENTER, 62 - 24);
 #endif
-        break;
-    }
+            break;
+        }
     }
     Rendering::RenderContext::get().matrix_clear();
     fontRenderer->generate_map();
@@ -531,4 +536,4 @@ auto PauseMenu::update() -> void {
 #endif
 }
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

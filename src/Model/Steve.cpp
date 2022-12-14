@@ -1,7 +1,8 @@
+#include <yaml-cpp/yaml.h>
+
 #include "../TexturePackManager.hpp"
 #include "../Utils.hpp"
 #include "SteveModel.hpp"
-#include <yaml-cpp/yaml.h>
 
 namespace CrossCraft::Model {
 
@@ -44,4 +45,4 @@ void Steve::draw(SteveData *sd) {
     leg.draw({0.0f, -1.0f + 1.8f, -0.125f}, {0, 0, sval}, {1, 1, 1});
     ctx->matrix_clear();
 }
-} // namespace CrossCraft::Model
+}  // namespace CrossCraft::Model

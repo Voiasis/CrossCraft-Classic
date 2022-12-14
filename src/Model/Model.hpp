@@ -1,7 +1,8 @@
 #pragma once
+#include <yaml-cpp/yaml.h>
+
 #include <Rendering/Mesh.hpp>
 #include <vector>
-#include <yaml-cpp/yaml.h>
 
 namespace CrossCraft::Model {
 using namespace Stardust_Celeste;
@@ -13,4 +14,4 @@ struct Model {
     uint16_t idx_counter;
     Rendering::Mesh<Rendering::Vertex> blockMesh;
 };
-} // namespace CrossCraft::Model
+}  // namespace CrossCraft::Model

@@ -3,7 +3,7 @@
 
 namespace CrossCraft {
 class AABB {
-  public:
+   public:
     AABB(glm::vec3 position, glm::vec3 extent) : pos(position), ext(extent) {}
 
     auto getMin() -> glm::vec3 { return pos; }
@@ -33,4 +33,4 @@ class AABB {
 
     glm::vec3 pos, ext;
 };
-} // namespace CrossCraft
+}  // namespace CrossCraft

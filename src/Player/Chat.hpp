@@ -10,7 +10,7 @@ struct ChatData {
 };
 
 class Chat {
-  public:
+   public:
     Chat();
 
     void add_message(std::string str);
@@ -19,4 +19,4 @@ class Chat {
     std::deque<ChatData> data;
 };
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

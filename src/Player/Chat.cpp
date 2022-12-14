@@ -1,4 +1,5 @@
 #include "Chat.hpp"
+
 #include <vector>
 
 namespace CrossCraft {
@@ -15,13 +16,11 @@ void Chat::update(double dt) {
 
         p.timer -= dt;
 
-        if (p.timer < 0)
-            removal.push_back(i);
+        if (p.timer < 0) removal.push_back(i);
     }
 
     for (auto &id : removal) {
-        if(id < data.size())
-        data.erase(data.begin() + id);
+        if (id < data.size()) data.erase(data.begin() + id);
     }
 }
-} // namespace CrossCraft
+}  // namespace CrossCraft

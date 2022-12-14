@@ -1,13 +1,13 @@
 #pragma once
-#include "Utils.hpp"
 #include <fstream>
 #include <sstream>
 #include <string>
 
+#include "Utils.hpp"
+
 namespace CrossCraft {
 
 struct Option {
-
     Option() { loadOptions(); }
 
     bool music;
@@ -19,7 +19,7 @@ struct Option {
     bool fps;
     bool vsync;
 
-    inline auto loadOptions() -> void { // Store default values
+    inline auto loadOptions() -> void {  // Store default values
         music = true;
         sound = true;
         renderDist = 2;
@@ -33,7 +33,6 @@ struct Option {
             std::string line;
 
             while (std::getline(file, line, ':')) {
-
                 if (line == "music") {
                     std::getline(file, line);
                     std::stringstream str(line);
@@ -83,10 +82,10 @@ struct Option {
         file2.close();
     }
 
-    inline static auto get() -> Option & {
+    inline static auto get() -> Option& {
         static Option mm;
         return mm;
     }
 };
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

@@ -1,8 +1,9 @@
 #pragma once
-#include "Utils.hpp"
 #include <fstream>
 #include <sstream>
 #include <string>
+
+#include "Utils.hpp"
 
 namespace CrossCraft {
 
@@ -29,7 +30,6 @@ struct Config {
             std::string line;
 
             while (std::getline(file, line, ':')) {
-
                 if (line == "sense") {
                     std::getline(file, line);
                     std::stringstream str(line);
@@ -77,4 +77,4 @@ struct Config {
     }
 };
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

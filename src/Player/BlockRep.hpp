@@ -1,4 +1,10 @@
 #pragma once
+#include <Graphics/2D/Sprite.hpp>
+#include <Rendering/Camera.hpp>
+#include <Rendering/Primitive/Rectangle.hpp>
+#include <any>
+#include <glm.hpp>
+
 #include "../MP/Client.hpp"
 #include "../UI/TextHelper.hpp"
 #include "../UI/UserInterface.hpp"
@@ -6,16 +12,11 @@
 #include "AABB.hpp"
 #include "Chat.hpp"
 #include "Graphics/2D/FontRenderer.hpp"
-#include <Graphics/2D/Sprite.hpp>
-#include <Rendering/Camera.hpp>
-#include <Rendering/Primitive/Rectangle.hpp>
-#include <any>
-#include <glm.hpp>
 using namespace Stardust_Celeste;
 
 namespace CrossCraft {
 class BlockRep {
-  public:
+   public:
     BlockRep();
     ~BlockRep();
 
@@ -24,7 +25,7 @@ class BlockRep {
 
     uint32_t terrain_atlas;
 
-  private:
+   private:
     // Block Drawing
 
     auto setup_model(uint8_t type) -> void;
@@ -36,4 +37,4 @@ class BlockRep {
     uint16_t idx_counter[50];
     Rendering::Mesh<Rendering::Vertex> blockMesh[50];
 };
-} // namespace CrossCraft
+}  // namespace CrossCraft

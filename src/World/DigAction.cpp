@@ -1,15 +1,20 @@
 #include "DigAction.hpp"
+
+#include <Utilities/Input.hpp>
+#include <gtx/rotate_vector.hpp>
+
 #include "../Controls.hpp"
 #include "../Gamestate.hpp"
 #include "../Modding/Mod.hpp"
 #include "../Option.hpp"
 #include "SaveData.hpp"
-#include <Utilities/Input.hpp>
-#include <gtx/rotate_vector.hpp>
 
 namespace CrossCraft {
 
-template <typename T> constexpr T DEGTORAD(T x) { return x / 180.0f * 3.14159; }
+template <typename T>
+constexpr T DEGTORAD(T x) {
+    return x / 180.0f * 3.14159;
+}
 
 auto DigAction::doInventory(World *w) -> void {
     using namespace Stardust_Celeste::Utilities;
@@ -31,8 +36,7 @@ auto DigAction::doInventory(World *w) -> void {
 
     int idx = iY * 9 + iX;
 
-    if (idx > 41)
-        return;
+    if (idx > 41) return;
 
 #if PSP || BUILD_PLAT == BUILD_VITA || BUILD_PLAT == BUILD_3DS
     idx = (w->player->in_cursor_x) + (w->player->in_cursor_y * 9);
@@ -175,8 +179,7 @@ auto DigAction::dig(std::any d) -> void {
                                static_cast<s32>(cast_pos.z));
 
         // Check valid vector
-        if (!validate_ivec3(ivec, w->world_size))
-            continue;
+        if (!validate_ivec3(ivec, w->world_size)) continue;
 
         // Get Block
         u32 idx = w->getIdx(ivec.x, ivec.y, ivec.z);
@@ -199,6 +202,8 @@ auto DigAction::dig(std::any d) -> void {
         if (w->worldData[idx] == Block::Sponge) {
             was_sponge = true;
         }
+
+        w->sound_manager->play(blk, cast_pos);
 
         auto oblk = w->worldData[idx];
         // Set to air
@@ -232,8 +237,7 @@ auto DigAction::dig(std::any d) -> void {
         // Update Lighting
         w->update_lighting(ivec.x, ivec.z);
 
-        if (w->chunks.find(id) != w->chunks.end())
-            w->chunks[id]->generate(w);
+        if (w->chunks.find(id) != w->chunks.end()) w->chunks[id]->generate(w);
 
         w->update_surroundings(ivec.x, ivec.z);
         w->update_nearby_blocks(ivec);
@@ -244,4 +248,4 @@ auto DigAction::dig(std::any d) -> void {
     }
 }
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

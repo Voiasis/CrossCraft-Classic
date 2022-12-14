@@ -12,14 +12,13 @@ BlockRep::~BlockRep() {}
 auto BlockRep::add_face_to_mesh(std::array<float, 12> data,
                                 std::array<float, 8> uv, uint32_t lightVal,
                                 glm::vec3 mypos, uint8_t type)
-    -> void { // Create color
+    -> void {  // Create color
     Rendering::Color c;
     c.color = lightVal;
 
     // Push Back Verts
     u8 idx = 0;
     for (int i = 0, tx = 0; i < 4; i++) {
-
         Rendering::Vertex vert;
         vert.color = c;
         vert.u = uv[tx++];
@@ -64,7 +63,6 @@ auto BlockRep::setup_model(uint8_t type) -> void {
         add_face_to_mesh(frontFaceHalf, getTexCoord(type, LIGHT_SIDE_Z),
                          LIGHT_SIDE_Z, p, type);
     } else {
-
         add_face_to_mesh(topFace, getTexCoord(type, LIGHT_TOP), LIGHT_TOP, p,
                          type);
         add_face_to_mesh(leftFace, getTexCoord(type, LIGHT_SIDE_X), LIGHT_BOT,
@@ -184,4 +182,4 @@ auto BlockRep::drawBlkHand(uint8_t type, World *wrld, double cube_bob) -> void {
     ctx->matrix_clear();
 }
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

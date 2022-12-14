@@ -17,11 +17,9 @@
 #include <unistd.h>
 #endif
 
-#include <thread>
-
 #include <Network/Network.hpp>
 #include <Utilities/Utilities.hpp>
+#include <thread>
 
-#define VERIFY(x)                                                              \
-    if (!(x))                                                                  \
-        SC_APP_ERROR("ERROR READING/WRITING BUFFER");
+#define VERIFY(x) \
+    if (!(x)) SC_APP_ERROR("ERROR READING/WRITING BUFFER");

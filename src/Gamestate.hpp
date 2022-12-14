@@ -1,17 +1,16 @@
+#include <stdio.h>
+
 #include <Core/Application.hpp>
 #include <Stardust-Celeste.hpp>
-#include <Utilities/Input.hpp>
-
 #include <Utilities/Controllers/KeyboardController.hpp>
 #include <Utilities/Controllers/MouseController.hpp>
 #include <Utilities/Controllers/N3DSController.hpp>
 #include <Utilities/Controllers/PSPController.hpp>
 #include <Utilities/Controllers/VitaController.hpp>
-
+#include <Utilities/Input.hpp>
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <stdio.h>
 
 #include "Config.hpp"
 #include "MP/Client.hpp"
@@ -26,15 +25,17 @@ namespace CrossCraft {
  *
  */
 class GameState : public Core::ApplicationState {
-  public:
+   public:
     /**
      * @brief Construct a new Game State object
      *
      * @param forceMP Forced Multiplayer (MP Connect)
      */
     GameState(bool forceMP = false)
-        : key_controller(nullptr), psp_controller(nullptr),
-          mouse_controller(nullptr), forced_mp(forceMP){};
+        : key_controller(nullptr),
+          psp_controller(nullptr),
+          mouse_controller(nullptr),
+          forced_mp(forceMP){};
 
     /**
      * @brief Destroy the Game State object
@@ -71,7 +72,7 @@ class GameState : public Core::ApplicationState {
     void on_update(Core::Application *app, double dt);
     void on_draw(Core::Application *app, double dt);
 
-  private:
+   private:
     /**
      * @brief Quit Command to Bind
      *
@@ -104,4 +105,4 @@ class GameState : public Core::ApplicationState {
     Utilities::Controller *n3ds_controller;
 };
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

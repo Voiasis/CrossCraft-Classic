@@ -2,18 +2,14 @@
 
 const size_t MAX_SIZE = 1028;
 
-namespace CrossCraft::MP::Incoming
-{
-    auto readIncomingPacket(RefPtr<Network::ByteBuffer> byte_buffer) -> RefPtr<BasePacket>
-    {
-        Byte id;
-        byte_buffer->ReadU8(id);
+namespace CrossCraft::MP::Incoming {
+auto readIncomingPacket(RefPtr<Network::ByteBuffer> byte_buffer)
+    -> RefPtr<BasePacket> {
+    Byte id;
+    byte_buffer->ReadU8(id);
 
-        switch (static_cast<InPacketTypes>(id))
-        {
-
-        case eServerIdentification:
-        {
+    switch (static_cast<InPacketTypes>(id)) {
+        case eServerIdentification: {
             auto ptr = create_refptr<ServerIdentification>();
             ptr->PacketID = id;
 
@@ -25,22 +21,19 @@ namespace CrossCraft::MP::Incoming
             return ptr;
         }
 
-        case ePing:
-        {
+        case ePing: {
             auto ptr = create_refptr<Ping>();
             ptr->PacketID = id;
 
             return ptr;
         }
-        case eLevelInitialize:
-        {
+        case eLevelInitialize: {
             auto ptr = create_refptr<LevelInitialize>();
             ptr->PacketID = id;
 
             return ptr;
         }
-        case eLevelDataChunk:
-        {
+        case eLevelDataChunk: {
             auto ptr = create_refptr<LevelDataChunk>();
             ptr->PacketID = id;
 
@@ -50,8 +43,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case eLevelFinalize:
-        {
+        case eLevelFinalize: {
             auto ptr = create_refptr<LevelFinalize>();
             ptr->PacketID = id;
 
@@ -62,8 +54,7 @@ namespace CrossCraft::MP::Incoming
             return ptr;
         }
 
-        case eSetBlock:
-        {
+        case eSetBlock: {
             auto ptr = create_refptr<SetBlock>();
             ptr->PacketID = id;
 
@@ -74,8 +65,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case eSpawnPlayer:
-        {
+        case eSpawnPlayer: {
             auto ptr = create_refptr<SpawnPlayer>();
             ptr->PacketID = id;
 
@@ -89,8 +79,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case ePlayerTeleport:
-        {
+        case ePlayerTeleport: {
             auto ptr = create_refptr<PlayerTeleport>();
             ptr->PacketID = id;
 
@@ -103,8 +92,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case ePlayerUpdate:
-        {
+        case ePlayerUpdate: {
             auto ptr = create_refptr<PlayerUpdate>();
             ptr->PacketID = id;
 
@@ -117,8 +105,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case ePositionUpdate:
-        {
+        case ePositionUpdate: {
             auto ptr = create_refptr<PositionUpdate>();
             ptr->PacketID = id;
 
@@ -129,8 +116,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case eOrientationUpdate:
-        {
+        case eOrientationUpdate: {
             auto ptr = create_refptr<OrientationUpdate>();
             ptr->PacketID = id;
 
@@ -140,8 +126,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case eDespawnPlayer:
-        {
+        case eDespawnPlayer: {
             auto ptr = create_refptr<DespawnPlayer>();
             ptr->PacketID = id;
 
@@ -149,8 +134,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case eMessage:
-        {
+        case eMessage: {
             auto ptr = create_refptr<Message>();
             ptr->PacketID = id;
 
@@ -159,8 +143,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case eDisconnect:
-        {
+        case eDisconnect: {
             auto ptr = create_refptr<Disconnect>();
             ptr->PacketID = id;
 
@@ -168,8 +151,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        case eUpdateUserType:
-        {
+        case eUpdateUserType: {
             auto ptr = create_refptr<UpdateUserType>();
             ptr->PacketID = id;
 
@@ -177,7 +159,7 @@ namespace CrossCraft::MP::Incoming
 
             return ptr;
         }
-        }
-        return nullptr;
     }
+    return nullptr;
 }
+}  // namespace CrossCraft::MP::Incoming

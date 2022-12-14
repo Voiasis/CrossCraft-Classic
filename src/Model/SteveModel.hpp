@@ -1,6 +1,7 @@
 #pragma once
-#include "Model.hpp"
 #include <glm.hpp>
+
+#include "Model.hpp"
 
 namespace CrossCraft::Model {
 using namespace Stardust_Celeste;
@@ -12,7 +13,7 @@ struct SteveData {
 };
 
 class Steve {
-  public:
+   public:
     Steve();
     ~Steve();
 
@@ -23,7 +24,7 @@ class Steve {
         return steve;
     }
 
-  private:
+   private:
     uint32_t tex;
 
     Model arm;
@@ -31,4 +32,4 @@ class Steve {
     Model torso;
     Model head;
 };
-} // namespace CrossCraft::Model
+}  // namespace CrossCraft::Model

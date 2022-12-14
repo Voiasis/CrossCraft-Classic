@@ -1,11 +1,16 @@
 #include "PlaceAction.hpp"
-#include "../Modding/Mod.hpp"
+
 #include <Utilities/Input.hpp>
 #include <gtx/rotate_vector.hpp>
 
+#include "../Modding/Mod.hpp"
+
 namespace CrossCraft {
 
-template <typename T> constexpr T DEGTORAD(T x) { return x / 180.0f * 3.14159; }
+template <typename T>
+constexpr T DEGTORAD(T x) {
+    return x / 180.0f * 3.14159;
+}
 
 auto PlaceAction::place(std::any d) -> void {
     auto w = std::any_cast<World *>(d);
@@ -17,8 +22,7 @@ auto PlaceAction::place(std::any d) -> void {
         return;
 
     // If in inventory, skip
-    if (w->player->in_inventory)
-        return;
+    if (w->player->in_inventory) return;
 
     // Setup default camera pointing vector
     auto default_vec = glm::vec3(0, 0, 1);
@@ -45,8 +49,7 @@ auto PlaceAction::place(std::any d) -> void {
         auto pos = w->player->get_pos();
 
         // Validate ivec is in bounds
-        if (!validate_ivec3(ivec, w->world_size))
-            continue;
+        if (!validate_ivec3(ivec, w->world_size)) continue;
 
         // Get block
         u32 idx = w->getIdx(ivec.x, ivec.y, ivec.z);
@@ -71,7 +74,6 @@ auto PlaceAction::place(std::any d) -> void {
         for (int i = 0; i < 2; i++) {
             float ym = -0.3f;
             for (int c = 0; c < 2; c++) {
-
                 auto posivec = glm::ivec3(static_cast<s32>(pos.x + xm),
                                           static_cast<s32>(pos.y),
                                           static_cast<s32>(pos.z + ym));
@@ -86,8 +88,7 @@ auto PlaceAction::place(std::any d) -> void {
                                   static_cast<s32>(cast_pos.y),
                                   static_cast<s32>(cast_pos.z + ym));
 
-                if (!validate_ivec3(ivec, w->world_size))
-                    return;
+                if (!validate_ivec3(ivec, w->world_size)) return;
 
                 if ((ivec == posivec || ivec == posivec2 || ivec == posivec3) &&
                     (bk != Block::Sapling && bk != Block::Flower1 &&
@@ -170,8 +171,7 @@ auto PlaceAction::place(std::any d) -> void {
         // Update Lighting
         w->update_lighting(ivec.x, ivec.z);
 
-        if (w->chunks.find(id) != w->chunks.end())
-            w->chunks[id]->generate(w);
+        if (w->chunks.find(id) != w->chunks.end()) w->chunks[id]->generate(w);
 
         w->update_surroundings(ivec.x, ivec.z);
         w->update_nearby_blocks(ivec);
@@ -179,8 +179,10 @@ auto PlaceAction::place(std::any d) -> void {
         Modding::ModManager::get().onPlace(
             ivec, w->player->itemSelections[w->player->selectorIDX]);
 
+        w->sound_manager->play(blk, cast_pos, true);
+
         return;
     }
 }
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

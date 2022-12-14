@@ -1,4 +1,5 @@
 #include "MusicManager.hpp"
+
 #include "Option.hpp"
 #include "TexturePackManager.hpp"
 #include "Utils.hpp"
@@ -40,4 +41,4 @@ auto MusicManager::update(float dt) -> void {
     }
 }
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

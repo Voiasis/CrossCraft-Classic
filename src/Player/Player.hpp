@@ -9,6 +9,12 @@
  *
  */
 #pragma once
+#include <Graphics/2D/Sprite.hpp>
+#include <Rendering/Camera.hpp>
+#include <Rendering/Primitive/Rectangle.hpp>
+#include <any>
+#include <glm.hpp>
+
 #include "../MP/Client.hpp"
 #include "../UI/TextHelper.hpp"
 #include "../UI/UserInterface.hpp"
@@ -18,11 +24,6 @@
 #include "Chat.hpp"
 #include "Graphics/2D/FontRenderer.hpp"
 #include "PauseMenu.hpp"
-#include <Graphics/2D/Sprite.hpp>
-#include <Rendering/Camera.hpp>
-#include <Rendering/Primitive/Rectangle.hpp>
-#include <any>
-#include <glm.hpp>
 
 using namespace Stardust_Celeste;
 
@@ -36,7 +37,7 @@ class BlockRep;
  *
  */
 class Player {
-  public:
+   public:
     /**
      * @brief Construct a new Player object
      *
@@ -136,10 +137,9 @@ class Player {
 
     World *wrldRef;
 
-  private:
-
-      const float playerSpeed = 4.3f;
-      auto rotate(float dt, float sense) -> void;
+   private:
+    const float playerSpeed = 4.3f;
+    auto rotate(float dt, float sense) -> void;
     auto test_collide(glm::vec3 pos, World *wrld, float dt) -> void;
 
     glm::vec3 vel;
@@ -147,6 +147,7 @@ class Player {
     float jump_icd;
     float view_bob, view_timer;
     float cube_bob;
+    float sound_icd;
 
     ScopePtr<Graphics::G2D::Sprite> item_box;
     ScopePtr<Graphics::G2D::Sprite> selector;
@@ -187,4 +188,4 @@ struct RespawnRequest {
     World *wrld;
 };
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

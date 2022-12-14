@@ -9,19 +9,22 @@
  *
  */
 #pragma once
-#include "../Chunk/ChunkStack.hpp"
-#include "../Config.hpp"
-#include "../MP/Client.hpp"
-#include "../Player/Player.hpp"
-#include "Clouds.hpp"
-#include "Particles.hpp"
+#include <stdint.h>
+#include <stdio.h>
+
 #include <Utilities/Types.hpp>
 #include <glm.hpp>
 #include <map>
 #include <memory>
-#include <stdint.h>
-#include <stdio.h>
 #include <vector>
+
+#include "../Chunk/ChunkStack.hpp"
+#include "../Config.hpp"
+#include "../MP/Client.hpp"
+#include "../Player/Player.hpp"
+#include "../Sound/SoundManager.hpp"
+#include "Clouds.hpp"
+#include "Particles.hpp"
 namespace CrossCraft {
 
 struct LayerMeta {
@@ -51,7 +54,7 @@ class ChunkStack;
  *
  */
 class World {
-  public:
+   public:
     /**
      * @brief Construct a new World object
      *
@@ -158,7 +161,9 @@ class World {
 
     glm::vec3 world_size;
 
-  private:
+    ScopePtr<SoundManager> sound_manager;
+
+   private:
     /**
      * @brief Get the needed chunks
      *
@@ -189,4 +194,4 @@ class World {
     friend class ClassicGenerator;
 };
 
-} // namespace CrossCraft
+}  // namespace CrossCraft

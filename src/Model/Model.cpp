@@ -1,4 +1,5 @@
 #include "Model.hpp"
+
 #include <array>
 
 namespace CrossCraft::Model {
@@ -153,4 +154,4 @@ void Model::draw(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale) {
     Rendering::RenderContext::get().matrix_pop();
 }
 
-} // namespace CrossCraft::Model
+}  // namespace CrossCraft::Model

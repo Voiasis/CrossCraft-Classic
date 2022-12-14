@@ -1,14 +1,16 @@
 #include "Player.hpp"
-#include "../BlockConst.hpp"
-#include "../Chunk/ChunkUtil.hpp"
-#include "../MP/OutPackets.hpp"
-#include "../TexturePackManager.hpp"
+
 #include <Platform/Platform.hpp>
 #include <Utilities/Input.hpp>
 #include <Utilities/Logger.hpp>
 #include <gtc/matrix_transform.hpp>
 #include <gtx/projection.hpp>
 #include <gtx/rotate_vector.hpp>
+
+#include "../BlockConst.hpp"
+#include "../Chunk/ChunkUtil.hpp"
+#include "../MP/OutPackets.hpp"
+#include "../TexturePackManager.hpp"
 
 #if PSP
 #include <malloc.h>
@@ -64,7 +66,10 @@ u32 totalRamFree() {
 #endif
 
 namespace CrossCraft {
-template <typename T> constexpr T DEGTORAD(T x) { return x / 180.0f * 3.14159; }
+template <typename T>
+constexpr T DEGTORAD(T x) {
+    return x / 180.0f * 3.14159;
+}
 
 #if BUILD_PC
 extern void character_callback(GLFWwindow *window, unsigned int codepoint);
@@ -73,11 +78,13 @@ extern std::string chat_text;
 extern Player *player_ptr;
 
 Player::Player()
-    : pos(0.f, 64.0f, 0.f), rot(0.f, 180.f), vel(0.f, 0.f, 0.f),
+    : pos(0.f, 64.0f, 0.f),
+      rot(0.f, 180.f),
+      vel(0.f, 0.f, 0.f),
       cam(pos, glm::vec3(rot.x, rot.y, 0), 70.0f, 16.0f / 9.0f, 0.1f, 255.0f),
       is_falling(true),
-      model(pos, {0.6, 1.8, 0.6}), itemSelections{1,  4,  45, 3, 5,
-                                                  17, 18, 20, 44},
+      model(pos, {0.6, 1.8, 0.6}),
+      itemSelections{1, 4, 45, 3, 5, 17, 18, 20, 44},
       inventorySelection{1,  4,  45, 3,  5,  17, 18, 20, 44, 48, 6,
                          37, 38, 39, 40, 12, 13, 19, 21, 22, 23, 24,
                          25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35,
@@ -101,6 +108,8 @@ Player::Player()
     in_pause = false;
 
     hasDir = false;
+
+    sound_icd = 0;
 
     auto backX = SCREEN_CENTER - 114;
     background_rectangle = create_scopeptr<Rendering::Primitive::Rectangle>(
@@ -286,9 +295,7 @@ void Player::test_collide(glm::vec3 testpos, World *wrld, float dt) {
 }
 
 void Player::update(float dt, World *wrld) {
-
-    if (wrld->client != nullptr && wrld->client->disconnected)
-        return;
+    if (wrld->client != nullptr && wrld->client->disconnected) return;
 
     fps_timer += dt;
     fps_count++;
@@ -301,8 +308,7 @@ void Player::update(float dt, World *wrld) {
     chat->update(dt);
 
     hasDir = false;
-    if (!in_pause)
-        rotate(dt, wrld->cfg.sense);
+    if (!in_pause) rotate(dt, wrld->cfg.sense);
     jump_icd -= dt;
 
     // Update position
@@ -340,6 +346,12 @@ void Player::update(float dt, World *wrld) {
     else
         is_underwater = false;
 
+    sound_icd -= dt;
+    if (sound_icd < 0 && vel.x != 0 && vel.z != 0 && blk != 8 && blk != 10) {
+        wrld->sound_manager->play(blk, pos, true);
+        sound_icd = 0.38f;
+    }
+
     blk = wrld->worldData[wrld->getIdx(testpos.x, testpos.y - 1.2f, testpos.z)];
     if (blk == 8 || blk == 10)
         water_cutoff = true;
@@ -363,8 +375,7 @@ void Player::update(float dt, World *wrld) {
     on_ground = (blk != 0 && blk != 8 && blk != 10);
 
     if (on_ground)
-        if (jumping)
-            jumping = false;
+        if (jumping) jumping = false;
 
     if (vel.x != 0 || vel.z != 0) {
         view_timer += dt;
@@ -421,8 +432,7 @@ auto Player::draw(World *wrld) -> void {
                   chat_text_size != chat_text.size() || in_tab ||
                   (wrld->client != nullptr && wrld->client->disconnected);
 
-    if (change)
-        playerHUD->clear();
+    if (change) playerHUD->clear();
 
     if (change) {
         if (wrld->client != nullptr) {
@@ -512,8 +522,7 @@ auto Player::draw(World *wrld) -> void {
         int i = 9;
         for (int x = chat->data.size() - 1; x >= 0; x--) {
             auto &p = chat->data.at(x);
-            if (i < 0)
-                break;
+            if (i < 0) break;
 
             playerHUD->draw_text(p.text, CC_TEXT_COLOR_WHITE,
                                  CC_TEXT_ALIGN_LEFT, CC_TEXT_ALIGN_CENTER, 0,
@@ -531,8 +540,7 @@ auto Player::draw(World *wrld) -> void {
     chat_text_size = chat_text.size();
     in_chat_delta = in_chat;
 
-    if (change)
-        playerHUD->rebuild();
+    if (change) playerHUD->rebuild();
 
     playerHUD->end2D();
 
@@ -556,4 +564,4 @@ auto Player::draw(World *wrld) -> void {
     }
 }
 
-} // namespace CrossCraft
+}  // namespace CrossCraft
